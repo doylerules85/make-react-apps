@@ -8,6 +8,8 @@ export default function App() {
   const linkUpRef = useRef(null);
   const linkRightRef = useRef(null);
   const linkLeftRef = useRef(null);
+
+  //custom hook
   const {x,y,direction,move} = useMovement();
 
   // set height of canvas
