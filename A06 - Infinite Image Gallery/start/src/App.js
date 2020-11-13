@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 
@@ -10,13 +11,7 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
 
-  // fetch unsplash
-  useEffect(() =>{
-    getPhotos();
-  }, [page]);
-
-  function getPhotos(){
-
+  const getPhotos = useCallback(() =>{
     let apiUrl = `https://api.unsplash.com/photos?`;
     if(query) apiUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
@@ -29,16 +24,25 @@ export default function App() {
       const imagesFromApi = data.results ?? data;
 
       // if page is 1 set new array of images
-      if(page === 1) return setImages(imagesFromApi);
+      if(page === 1){
+        setImages(imagesFromApi);
+        return;
+      }
 
       // page > 1 - adding to array that from search query
       setImages((images) => [...images, ...imagesFromApi])
     });
-  }
+  }, [page, query]);
+
+  // fetch unsplash
+  useEffect(() =>{
+    getPhotos();
+  }, [page, getPhotos]);
 
   function searchPhotos(e){
     e.preventDefault();
-    setPage();
+    // set to 1 so pages get the new query term images
+    setPage(1);
     getPhotos();
 
   }
@@ -63,7 +67,7 @@ export default function App() {
 
       <InfiniteScroll
         dataLength={images.length} //This is important field to render the next data
-        next={setPage((page) => page + 1)}
+        next={() => setPage((page) => page + 1)}
         hasMore={true}
         loader={<h4>Loading...</h4>}
       >
