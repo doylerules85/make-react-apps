@@ -1,19 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 export default function App() {
+  const [timers, setTimers] = useState([
+    {time: 1, text: 'first'},
+    {time: 4, text: 'second'},
+    {time: 8, text: 'third'},
+  ])
+
+  function updateTimers(index, time, text){
+    const newTimers = [...timers];
+    newTimers[index].time = time;
+    newTimers[index].text = text;
+    setTimers(newTimers);
+  }
+
+  function addTimers(){
+    const newTimers = [...timers, {time: 100, text: 'hope this works!'}];
+    setTimers(newTimers)
+  }
+
   return (
     <div className="app">
       <h2>Talk the Talk</h2>
 
       <div className="timers">
         {/* timers go here */}
-        <form className="timer">
-          <input type="number" />
-          <input type="text" />
-        </form>
+        {timers.map((timer, index) =>(
+          <TimerSlot timer={timer} index={index} key={index} updateTimers={updateTimers}/>
+        ))}
 
-        <button className="add-button">Add</button>
+        <button onClick={addTimers} className="add-button">Add</button>
       </div>
 
       {/* seconds */}
@@ -26,4 +43,21 @@ export default function App() {
       </div>
     </div>
   );
+}
+
+function TimerSlot({timer, index, updateTimers}){
+
+  const [time, setTime] = useState(timer.time);
+  const [text, setText] = useState(timer.text);
+
+  function handleBlur(){
+    updateTimers(index, time, text);
+  }
+
+  return (
+    <form className="timer" key={index}>
+        <input type="number" value={time} onBlur={handleBlur} onChange={(e) => setTime(e.target.value)}/>
+        <input type="text" value={text} onBlur={handleBlur} onChange={(e) => setText(e.target.value)}/>
+    </form>
+  )
 }
