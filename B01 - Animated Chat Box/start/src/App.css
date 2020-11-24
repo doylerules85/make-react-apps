@@ -54,6 +54,7 @@ body {
   padding: 10px;
   border-radius: 50px;
   width: 70px;
+  margin-top: 15px;
 }
 
 .dots > div {
@@ -125,7 +126,7 @@ body {
 .text {
   padding: 0.75rem;
   border-radius: 0.5rem;
-  background-color: #cd9b3e;
+  background-color: #3ea2cd;
   color: #ebf8ff;
   display: flex;
   align-items: center;
@@ -133,7 +134,7 @@ body {
 
 .message:nth-child(even) .text {
   justify-content: flex-end;
-  background-color: #ae2e38;
+  background-color: #f27426;
 }
 
 /* putting this down here because its giant */
