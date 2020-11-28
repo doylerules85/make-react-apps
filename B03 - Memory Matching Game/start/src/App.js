@@ -38,7 +38,7 @@ export default function App() {
   useEffect(() =>{
     if(opened.length === 2){
       setTimeout(() => {
-        setOpened([]);
+        setOpened(opened => []);
       }, 1000);
     }
   }, [opened])
@@ -56,17 +56,24 @@ export default function App() {
     setOpened(opened => [...opened, index])
   }
 
+  function handleRedo(){
+    setMatched([]);
+    setMoves(0);
+  }
+
   return <div className="app">
+    { matched.length > 0 && <button className="redo-btn" onClick={() => handleRedo()}>RE-DO</button>}
     <p>MOVES:{moves}</p>
     <div className="cards">
       {doublePokemon.map((pokemon,index) =>{
         let isFlipped = false;
+        let isDisabled = false;
         //do logic if card is Flipped
-        if(opened.includes(index)) {isFlipped = true};
-        if(matched.includes(pokemon.id)) {isFlipped = true};
+        if(opened.includes(index)) {isFlipped = true; isDisabled = true};
+        if(matched.includes(pokemon.id)) {isFlipped = true; isDisabled = true};
 
         return (
-          <PokemonCard pokemon={pokemon} key={index} isFlipped={isFlipped} index={index} flipCard={flipCard}/>
+          <PokemonCard pokemon={pokemon} key={index} isFlipped={isFlipped} index={index} flipCard={flipCard} isDisabled={isDisabled}/>
         )
       })}
     </div>
@@ -75,9 +82,9 @@ export default function App() {
 
 
 // Pokemon Card Component
-function PokemonCard({pokemon, isFlipped, index, flipCard}){
+function PokemonCard({pokemon, isFlipped, index, flipCard,isDisabled}){
   return (
-    <button onClick={() =>flipCard(index)} className={`pokemon-card ${isFlipped ? 'flipped' : ''}`}>
+    <button disabled={isDisabled} onClick={() =>flipCard(index)} className={`pokemon-card ${isFlipped ? 'flipped' : ''}`}>
       <div className="inner">
         <div className="front">
           <img src={`https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png`} alt={pokemon.name} width="100"/>

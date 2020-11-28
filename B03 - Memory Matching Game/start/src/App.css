@@ -89,3 +89,14 @@ p strong {
   color: #fff;
   transform: scale(1.02);
 }
+
+.redo-btn{
+  float: left;
+  background: none;
+  border: 2px solid papayawhip;
+  color: papayawhip;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  
+}
