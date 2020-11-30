@@ -59,6 +59,7 @@ export default function App() {
   function handleRedo(){
     setMatched([]);
     setMoves(0);
+    shuffle(doublePokemon);
   }
 
   return <div className="app">
