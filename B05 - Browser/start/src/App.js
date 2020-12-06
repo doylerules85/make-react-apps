@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
 import Tabs from './components/Tabs';
 import AddressBar from './components/AddressBar';
 import './App.css';
@@ -32,7 +32,29 @@ function reducer(state, action){
       browsers: newBrowsers,
     }
   }
-  if(action.type === 'CLOSE'){}
+
+
+
+  if(action.type === 'CLOSE'){
+
+    // grab old browsers
+    const oldBrowsers = [...browsers];
+    // keep the indexes that dont match our payload
+    const newBrowsers = oldBrowsers.filter((b, index) => index !== payload);
+    // set up old url
+    const oldUrl = oldBrowsers[activeBrowser];
+
+    // logic to know which browser tab will be active
+    const newActiveBrowser = activeBrowser > newBrowsers.length - 1
+      ? newBrowsers.length - 1 
+      : newBrowsers.findIndex(b => b === oldUrl);
+
+    // return the state updates
+    return {
+      browsers:  newBrowsers,
+      activeBrowser: newActiveBrowser,
+    }
+  }
 }
 
 export default function App() {
@@ -64,12 +86,16 @@ export default function App() {
     dispatch({type: 'UPDATE', payload: url});
   }
 
+  function closeBrowser(id){
+    dispatch({type: 'CLOSE', payload: id});
+  }
+
   const url = browsers[activeBrowser];
 
   return (
     <div className="app">
       <div className="browser">
-        <Tabs browsers={browsers} active={activeBrowser} choose={chooseBrowser} add={addBrowser}/>
+        <Tabs browsers={browsers} active={activeBrowser} choose={chooseBrowser} add={addBrowser} close={closeBrowser}/>
 
         <AddressBar update={updateBrowser} url={url} />
 
