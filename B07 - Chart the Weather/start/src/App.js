@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import GeoForm from './components/GeoForm';
-import WeatherChart from './components/WeatheChart';
+import WeatherChart from './components/WeatherChart';
 
 import './App.css';
 
