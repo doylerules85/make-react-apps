@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import GeoForm from './components/GeoForm';
+import WeatherChart from './components/WeatheChart';
+
 import './App.css';
 
 // openweathermap.org
@@ -9,10 +12,14 @@ import './App.css';
 // api key: AIzaSyDp4os33WF6-4d-xFVyL0HsUUHN7dOml_w
 
 export default function App() {
+  const [latLng, setLatLng] = useState(null);
+
   return (
     <div className="app">
       {/* form goes here */}
+      <GeoForm setLatLng={setLatLng} />
       {/* chart goes here */}
+      {latLng && <WeatherChart latLng={latLng} />}
     </div>
   );
 }

@@ -14,7 +14,7 @@ body {
 }
 
 .app {
-  background: #e20174;
+  background: #d8eefe;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 0 0 30px;
@@ -50,4 +50,30 @@ input:active {
 }
 
 canvas {
+}
+
+.feels-like{
+  font-size: 3rem;
+  font-family: 'Helvetica';
+  font-weight: 800;
+}
+
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+.svg-icon {
+  width: 3em;
+  height: 3em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #4691f6;
+}
+
+.svg-icon circle {
+  stroke: #4691f6;
+  stroke-width: 1;
 }
