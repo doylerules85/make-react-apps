@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useCallback } from 'react';
 import Geocode from 'react-geocode';
 
-Geocode.setApiKey("AIzaSyDgBITUsYQT1mRTRtHuBPMLjvS2KkKWqPY");
+const weatherKey = process.env.REACT_APP_WEATHER_KEY
+Geocode.setApiKey(weatherKey);
 
 export default function GeoForm({setLatLng}) {
 
