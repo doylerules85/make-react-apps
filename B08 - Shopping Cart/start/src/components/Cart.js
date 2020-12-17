@@ -27,7 +27,7 @@ export default function Cart() {
       }
       {
         cart.length === 0
-        ? <div> Add to Your Cart!</div>
+        ? <div className="content"> Add to Your Cart!</div>
         : <></>
       }
       <div className="total">${totalPrice}</div>
